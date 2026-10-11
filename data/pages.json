@@ -1,0 +1,220 @@
+{
+  "dieuHuong": {
+    "gioiThieu": "About Us",
+    "dongGop": "Give Back",
+    "quayLai": "Back"
+  },
+  "gioiThieu": {
+    "cauChuyen": {
+      "tieuDe": "Our Story",
+      "anh": {
+        "src": "/images/about/our-story.jpg",
+        "rong": 400,
+        "cao": 370,
+        "moTa": "Gia Han",
+        "cat": {
+          "rong": 100,
+          "cao": 144.14,
+          "trai": 0,
+          "tren": -32.88
+        }
+      },
+      "doan": [
+        [
+          {
+            "doan": [
+              {
+                "chu": "Hi, I’m Gia Han, a senior at Hanoi-Amsterdam High School for the Gifted. While traveling through Vietnam’s Northwestern mountains for volunteer trips and to work with local tea producers, I often found myself navigating through a string of unfamiliar coordinates. Many places had no names on Google Maps, no photos, reviews, or contact information. It took me three wrong turns before I finally found the right tea workshop and its owner. If it was difficult for me, I wondered how much harder it would be for other travelers to discover these places."
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "doan": [
+              {
+                "chu": "Yet behind those coordinates were breathtaking landscapes, living cultures, skilled artisans, and small communities with stories worth hearing. Rooted Routes Vietnam was created to become a bridge, connecting overlooked destinations and local businesses with people eager to discover them. By putting these places on the map, we hope to make exploring Vietnam more accessible, responsible, and rooted in respect for the communities that make each destination unique."
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    "suMenh": {
+      "tieuDe": "Mission & Vision",
+      "tamNhin": {
+        "tieuDe": "Our Vision",
+        "doan": [
+          {
+            "doan": [
+              {
+                "chu": "                                   To make every corner of Vietnam visible, accessible, and valued—while ensuring that tourism becomes a bridge between travelers and local communities, rather than a burden on the places they visit."
+              }
+            ]
+          }
+        ]
+      },
+      "anh": [
+        {
+          "src": "/images/about/vision-01.jpg",
+          "rong": 402.06,
+          "cao": 247.87,
+          "moTa": "Rooted Routes Vietnam with a local school"
+        },
+        {
+          "src": "/images/about/vision-02.jpg",
+          "rong": 402.06,
+          "cao": 247.87,
+          "moTa": "Rooted Routes Vietnam with local students",
+          "cat": {
+            "rong": 100,
+            "cao": 121.65,
+            "trai": 0,
+            "tren": -19
+          }
+        }
+      ],
+      "nhiemVu": {
+        "tieuDe": "Our Mission",
+        "doan": [
+          {
+            "doan": [
+              {
+                "chu": "                                        Rooted Routes Vietnam connects travelers with the places, cultures, and people behind the map. By bringing together reliable travel information, cultural guidance, and local businesses on one interactive platform, we aim to make exploring Vietnam easier, more respectful, and more beneficial to the communities that call these destinations home."
+              }
+            ]
+          }
+        ]
+      },
+      "anhLon": {
+        "src": "/images/about/mission.jpg",
+        "rong": 820.82,
+        "cao": 404.02,
+        "moTa": "Terraced hills in northwestern Vietnam",
+        "cat": {
+          "rong": 100,
+          "cao": 135.46,
+          "trai": 0,
+          "tren": -17.73
+        }
+      }
+    },
+    "nguon": {
+      "tieuDe": "resources",
+      "doan": [
+        [
+          {
+            "doan": [
+              {
+                "chu": "Our content is built from a combination of first-hand documentation and publicly available sources. Whenever possible, we use original photographs and observations collected directly during visits to each destination. These are supplemented by information from reliable online sources to provide travelers with accurate and comprehensive guidance."
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "doan": [
+              {
+                "chu": "We believe that understanding a place should go beyond simply finding it on a map - it should also mean learning about the people, culture, and stories that make it uniquee."
+              }
+            ]
+          }
+        ]
+      ],
+      "anh": [
+        {
+          "src": "/images/about/resources-01.jpg",
+          "rong": 400,
+          "cao": 245.66,
+          "moTa": "Tea tasting with local producers",
+          "cat": {
+            "rong": 100,
+            "cao": 108.64,
+            "trai": 0,
+            "tren": 0
+          }
+        },
+        {
+          "src": "/images/about/resources-02.jpg",
+          "rong": 400,
+          "cao": 266.7,
+          "moTa": "Drying tea leaves by hand"
+        }
+      ]
+    }
+  },
+  "dongGop": {
+    "nen": {
+      "src": "/images/give-back/background.jpg",
+      "rong": 1440,
+      "cao": 955.59,
+      "moTa": "Gathering around a fire",
+      "cat": {
+        "rong": 100,
+        "cao": 100.2,
+        "trai": 0,
+        "tren": -0.27
+      }
+    },
+    "tieuDe": "Give Back",
+    "khauHieu": "Help Us Give Back to the Communities We Visit",
+    "doan": [
+      {
+        "doan": [
+          {
+            "chu": "Rooted Routes Vietnam currently supports children and families in "
+          },
+          {
+            "chu": "Bản Liền",
+            "dam": true
+          },
+          {
+            "chu": " and "
+          },
+          {
+            "chu": "Trạm Tấu",
+            "dam": true
+          },
+          {
+            "chu": ", where access to education and opportunities can still be limited."
+          }
+        ]
+      },
+      {
+        "doan": []
+      },
+      {
+        "doan": [
+          {
+            "chu": "If you would like to contribute, you can make a donation of any "
+          },
+          {
+            "chu": "amount you feel comfortable with",
+            "dam": true
+          },
+          {
+            "chu": ". Every contribution, big or small, helps us support educational opportunities and community-led initiatives for children in these areas."
+          }
+        ]
+      },
+      {
+        "doan": []
+      },
+      {
+        "doan": [
+          {
+            "chu": "Your kindness can help open a door to a wider future.",
+            "dam": true
+          }
+        ]
+      }
+    ],
+    "maQr": {
+      "src": "/images/give-back/qr-code.png",
+      "rong": 227.5,
+      "cao": 225.7,
+      "moTa": "Donation QR code"
+    },
+    "camOn": "Thank you for helping us make every journey mean a little more."
+  }
+}

@@ -1,26 +1,175 @@
 @import "tailwindcss";
 
+/* Drop the real font in public/fonts and this wakes up. Until then the stand-in does the talking. */
+@font-face {
+  font-family: "Avilock";
+  src:
+    local("Avilock Bold"),
+    local("Avilock-Bold"),
+    url("/fonts/Avilock-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* --px is one Figma pixel; everything is sized in it. Three rulers, because not everything can shrink alike:
+     --px-ban-do     the map
+     --px-ghim       pins and their name tags
+     --px-thong-tin  cards, panels, buttons: text lives here, so it has a floor
+   --px itself is whichever ruler the current subtree measures with (the info one unless told otherwise). */
+
+/* Under 1280: the map is one page and an open province is another; both scroll like any page.
+   510 = one 478 card plus gutters. 1340 leaves room for the Khánh Hòa tag, which hangs off the east coast. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --px-thong-tin: clamp(0.7px, calc(100vw / 510), 1px);
+  --px-ban-do: min(1px, calc(100vw / 1340));
+  --px-ghim: clamp(0.4px, calc(100vw / 825), 1px);
+  --px: var(--px-thong-tin);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* 1280 and up: one screen. The page never scrolls; the map is cut to the window's height and only a panel
+   that is too long scrolls, inside itself. */
+@media (width >= 80rem) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --px-thong-tin: clamp(0.75px, calc(100vw / 1920), 1px);
+    --le-doc: clamp(16px, 4dvh, 48px);
+    --le-ngang: clamp(24px, 3.4vw, 64px);
+    /* the row the two corner pills sit in, plus a little air under it */
+    --cao-thanh-tren: calc(var(--px-thong-tin) * 40 + 12px);
+    /* as tall as the window allows, but never wider than a third of it (71vw tall = 34vw wide) */
+    --cao-ban-do: min(calc(100dvh - var(--le-doc) * 2 - var(--cao-thanh-tren)), 71vw);
+    --rong-ban-do: calc(var(--cao-ban-do) * 0.4784);
+    --px-ban-do: calc(var(--cao-ban-do) / 2430.94);
+    /* a map this small would make the tags unreadable, so they get their own, bigger ruler */
+    --px-ghim: clamp(0.45px, calc(var(--px-ban-do) * 1.6), 1px);
+    /* what the right-hand column needs: the map, or the pills if they happen to be wider */
+    --cot-phai: max(var(--rong-ban-do), calc(var(--px-thong-tin) * 290));
   }
 }
 
+/* About Us and Give Back were drawn on a 1440 board; below 1024 they reflow on the info ruler like everything else */
+@media (width >= 64rem) {
+  .khung-1440 {
+    --px: min(1px, calc(100vw / 1440));
+  }
+}
+
+.ti-le-ban-do {
+  --px: var(--px-ban-do);
+}
+.ti-le-ghim {
+  --px: var(--px-ghim);
+}
+.ti-le-thong-tin {
+  --px: var(--px-thong-tin);
+}
+
+@theme inline {
+  --spacing: var(--px);
+
+  --color-nen: #fffce1;
+  --color-xanh: #003dc2;
+  --color-xanh-nhat: #6994f2;
+  --color-vang: #ffbf35;
+  --color-giay: #fbfbfb;
+  --color-muc: #373737;
+
+  --font-chu: "Mui Ten", var(--font-be-vietnam), system-ui, sans-serif;
+  --font-tieu-de: "Avilock", var(--font-du-phong), Impact, sans-serif;
+
+  --text-18: calc(var(--px) * 18);
+  --text-20: calc(var(--px) * 20);
+  --text-24: calc(var(--px) * 24);
+  --text-30: calc(var(--px) * 30);
+  --text-35: calc(var(--px) * 35);
+  --text-40: calc(var(--px) * 40);
+  --text-65: calc(var(--px) * 65);
+
+  --radius-17: calc(var(--px) * 17);
+}
+
+@theme {
+  --animate-tan: tan 1300ms linear both;
+  --animate-lo-lung: lo-lung 2.6s ease-in-out infinite;
+  --animate-phong-nen: phong-nen 14s ease-out both;
+
+  @keyframes tan {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes lo-lung {
+    50% {
+      translate: 0 -7%;
+    }
+  }
+  @keyframes phong-nen {
+    from {
+      scale: 1.12;
+    }
+  }
+}
+
+html {
+  background: var(--color-nen);
+}
+
+/* Page mode only: the map page can be shorter than the window and an open province longer. Keep the
+   scrollbar's seat reserved so nothing jumps sideways when it shows up. */
+@media (width < 80rem) {
+  html:has(main[data-ban-do]) {
+    scrollbar-gutter: stable;
+  }
+}
+
+/* look, don't take */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-chu);
+  color: var(--color-xanh);
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+img,
+svg {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+/* Avilock only has capitals, so the stand-in plays along */
+@utility chu-tieu-de {
+  font-family: var(--font-tieu-de);
+  font-weight: 700;
+  line-height: 0.968;
+  text-transform: uppercase;
+}
+
+/* One screen only. A box that scrolls without moving anything: the scrollbar's seat is always reserved, and whoever
+   uses this pays for it out of their right padding (see --rong-thanh-cuon), so the text keeps its Figma width. */
+@utility khung-cuon {
+  @media (width >= 80rem) {
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-xanh) transparent;
+  }
+}
+
+/* One screen only. A panel stops where the map column starts, unless that would leave it too narrow to read:
+   then it is allowed to lean over the map. */
+@utility chua-cho-ban-do {
+  @media (width >= 80rem) {
+    max-width: max(calc(var(--px) * 420), calc(100% - var(--cot-phai) - var(--px) * 24));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
