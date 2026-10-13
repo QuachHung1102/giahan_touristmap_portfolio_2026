@@ -12,7 +12,6 @@ function Doan({ doan }: { doan: DoanVan }) {
 
 const noiDung = (dong: DongVan) => dong.doan.map((doan, i) => <Doan key={i} doan={doan} />);
 
-// Lines exactly as typed in Figma, spaces and all. Bullet lines get gathered into real lists.
 export function VanBan({ dong, className = "" }: { dong: DongVan[]; className?: string }) {
   const nhom: DongVan[][] = [];
   for (const d of dong) {
@@ -21,7 +20,7 @@ export function VanBan({ dong, className = "" }: { dong: DongVan[]; className?: 
     else nhom.push([d]);
   }
   return (
-    // wrap-break-word: one long unbroken word must not push a narrow phone panel wider than the screen
+    // one long word must not widen a narrow panel
     <div className={`leading-[1.25] wrap-break-word whitespace-pre-wrap ${className}`}>
       {nhom.map((cum, i) =>
         cum[0].gach ? (

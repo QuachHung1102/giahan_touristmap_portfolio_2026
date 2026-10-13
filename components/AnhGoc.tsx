@@ -3,7 +3,6 @@ import type { Anh } from "@/data";
 
 type Props = { anh: Anh; className?: string; uuTien?: boolean };
 
-// The original file, untouched. The frame keeps Figma's proportions and crop.
 export function AnhGoc({ anh, className = "", uuTien = false }: Props) {
   const { cat } = anh;
   return (
@@ -12,7 +11,7 @@ export function AnhGoc({ anh, className = "", uuTien = false }: Props) {
       style={{ aspectRatio: `${anh.rong} / ${anh.cao}` }}
     >
       {cat ? (
-        // next/image refuses a custom size on "fill", so a cropped photo is placed by hand
+        // next/image refuses a custom size with "fill"
         <Image
           src={anh.src}
           alt={anh.moTa}

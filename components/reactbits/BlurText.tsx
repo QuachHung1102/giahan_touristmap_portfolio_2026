@@ -110,11 +110,13 @@ const BlurText: React.FC<BlurTextProps> = ({
             onAnimationComplete={index === elements.length - 1 ? onAnimationComplete : undefined}
             style={{
               display: 'inline-block',
+              // patched: plain spaces kept with pre; Avilock's NBSP is 60% wider than its space
+              whiteSpace: 'pre',
               willChange: 'transform, filter, opacity'
             }}
           >
-            {segment === ' ' ? '\u00A0' : segment}
-            {animateBy === 'words' && index < elements.length - 1 && '\u00A0'}
+            {segment}
+            {animateBy === 'words' && index < elements.length - 1 && ' '}
           </motion.span>
         );
       })}

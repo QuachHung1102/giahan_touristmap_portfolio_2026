@@ -4,7 +4,6 @@ import { MotionConfig, motion } from "motion/react";
 
 type Props = { children: React.ReactNode; tre?: number; className?: string };
 
-// Fades up the first time it scrolls into view. Once is enough, nobody likes a clingy paragraph.
 export function HienDan({ children, tre = 0, className }: Props) {
   return (
     <motion.div
@@ -19,7 +18,6 @@ export function HienDan({ children, tre = 0, className }: Props) {
   );
 }
 
-// Anyone who asked their OS for less motion gets less motion.
 export function CauHinhChuyenDong({ children }: { children: React.ReactNode }) {
   return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
 }

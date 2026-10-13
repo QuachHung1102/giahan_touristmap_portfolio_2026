@@ -2,11 +2,9 @@ import Link from "next/link";
 import Magnet from "@/components/reactbits/Magnet";
 import { hinhDang } from "@/data";
 
-// Scaled down on a phone these controls end up ~30px tall. The invisible ::after adds 10px above and below,
-// so a thumb still lands on them without the design changing.
+// invisible ::after: 10px more to tap above and below on small screens
 const vungCham = "relative after:absolute after:inset-x-0 after:-inset-y-[10px] after:content-[''] lg:after:hidden";
 
-// The two outlined pills in the corner. They lean toward the cursor a little, like they want to be picked.
 export function NutDieuHuong({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <Magnet padding={36} magnetStrength={7}>
@@ -24,7 +22,6 @@ const { muiTen } = hinhDang;
 
 type QuayLai = { nhan: string; className?: string } & ({ href: string; khiBam?: never } | { khiBam: () => void; href?: never });
 
-// "← Back". A link on the pages, a plain button when it only has to close an open province.
 export function NutQuayLai({ nhan, href, khiBam, className = "" }: QuayLai) {
   const ruot = (
     <>

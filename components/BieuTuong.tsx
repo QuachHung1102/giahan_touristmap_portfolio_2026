@@ -1,9 +1,8 @@
 import { hinhDang } from "@/data";
 
 const { ghim } = hinhDang;
-const XANH = "#003dc2"; // same blue as the site; CSS variables don't reach the image renderer
+const XANH = "#003dc2"; // CSS variables don't reach the image renderer
 
-// The map pin on the brand blue. Drawn once here, baked into PNGs by app/icon.tsx and app/apple-icon.tsx.
 export function BieuTuong({ kichThuoc, boGoc = true }: { kichThuoc: number; boGoc?: boolean }) {
   const cao = kichThuoc * 0.66;
   return (

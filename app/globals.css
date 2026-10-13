@@ -1,24 +1,18 @@
 @import "tailwindcss";
 
-/* Drop the real font in public/fonts and this wakes up. Until then the stand-in does the talking. */
 @font-face {
   font-family: "Avilock";
   src:
     local("Avilock Bold"),
     local("Avilock-Bold"),
-    url("/fonts/Avilock-Bold.woff2") format("woff2");
+    url("/fonts/Avilock%20Bold.ttf") format("truetype");
   font-weight: 700;
   font-display: swap;
 }
 
-/* --px is one Figma pixel; everything is sized in it. Three rulers, because not everything can shrink alike:
-     --px-ban-do     the map
-     --px-ghim       pins and their name tags
-     --px-thong-tin  cards, panels, buttons: text lives here, so it has a floor
-   --px itself is whichever ruler the current subtree measures with (the info one unless told otherwise). */
+/* --px is one Figma pixel. Three rulers: map, pins, and info (text lives there, so it has a floor). */
 
-/* Under 1280: the map is one page and an open province is another; both scroll like any page.
-   510 = one 478 card plus gutters. 1340 leaves room for the Khánh Hòa tag, which hangs off the east coast. */
+/* under 1280: the map is one page, an open province another */
 :root {
   --px-thong-tin: clamp(0.7px, calc(100vw / 510), 1px);
   --px-ban-do: min(1px, calc(100vw / 1340));
@@ -26,27 +20,23 @@
   --px: var(--px-thong-tin);
 }
 
-/* 1280 and up: one screen. The page never scrolls; the map is cut to the window's height and only a panel
-   that is too long scrolls, inside itself. */
+/* 1280 and up: one screen; nothing scrolls but a panel that is too long */
 @media (width >= 80rem) {
   :root {
     --px-thong-tin: clamp(0.75px, calc(100vw / 1920), 1px);
     --le-doc: clamp(16px, 4dvh, 48px);
     --le-ngang: clamp(24px, 3.4vw, 64px);
-    /* the row the two corner pills sit in, plus a little air under it */
     --cao-thanh-tren: calc(var(--px-thong-tin) * 40 + 12px);
-    /* as tall as the window allows, but never wider than a third of it (71vw tall = 34vw wide) */
+    /* 71vw tall = a third of the window wide */
     --cao-ban-do: min(calc(100dvh - var(--le-doc) * 2 - var(--cao-thanh-tren)), 71vw);
     --rong-ban-do: calc(var(--cao-ban-do) * 0.4784);
     --px-ban-do: calc(var(--cao-ban-do) / 2430.94);
-    /* a map this small would make the tags unreadable, so they get their own, bigger ruler */
     --px-ghim: clamp(0.45px, calc(var(--px-ban-do) * 1.6), 1px);
-    /* what the right-hand column needs: the map, or the pills if they happen to be wider */
     --cot-phai: max(var(--rong-ban-do), calc(var(--px-thong-tin) * 290));
   }
 }
 
-/* About Us and Give Back were drawn on a 1440 board; below 1024 they reflow on the info ruler like everything else */
+/* About Us and Give Back were drawn on a 1440 board */
 @media (width >= 64rem) {
   .khung-1440 {
     --px: min(1px, calc(100vw / 1440));
@@ -113,8 +103,7 @@ html {
   background: var(--color-nen);
 }
 
-/* Page mode only: the map page can be shorter than the window and an open province longer. Keep the
-   scrollbar's seat reserved so nothing jumps sideways when it shows up. */
+/* keep the scrollbar's seat, so nothing jumps sideways when it shows up */
 @media (width < 80rem) {
   html:has(main[data-ban-do]) {
     scrollbar-gutter: stable;
@@ -144,8 +133,7 @@ svg {
   text-transform: uppercase;
 }
 
-/* One screen only. A box that scrolls without moving anything: the scrollbar's seat is always reserved, and whoever
-   uses this pays for it out of their right padding (see --rong-thanh-cuon), so the text keeps its Figma width. */
+/* a scroll box whose scrollbar seat is always reserved */
 @utility khung-cuon {
   @media (width >= 80rem) {
     overflow-x: hidden;
@@ -157,8 +145,7 @@ svg {
   }
 }
 
-/* One screen only. A panel stops where the map column starts, unless that would leave it too narrow to read:
-   then it is allowed to lean over the map. */
+/* a panel stops where the map column starts, unless that leaves it too narrow to read */
 @utility chua-cho-ban-do {
   @media (width >= 80rem) {
     max-width: max(calc(var(--px) * 420), calc(100% - var(--cot-phai) - var(--px) * 24));

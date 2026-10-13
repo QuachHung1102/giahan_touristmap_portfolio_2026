@@ -14,15 +14,12 @@ type LuaChon = { slug: string; muc: number; con: number };
 
 const { banDo, ghim } = hinhDang;
 const { dieuHuong } = noiDungTrang;
-// same line as the CSS draws at 1280: below it the map and an open province are two separate, scrolling pages
+// same 1280 line as the CSS
 const dangTrang = () => window.matchMedia("(width < 80rem)").matches;
 const maBang = (slug: string, ma: string) => `bang-${slug}-${ma}`;
 const sauKhiVe = (viec: () => void) => requestAnimationFrame(viec);
 
-// The whole home page: map, pins, and the card + panels of whichever province is open.
-//   1280 and up: one screen. The map is cut to the window's height and slides aside when a province opens;
-//                the page never scrolls, only a panel that is too long does, inside its own frame.
-//   below:       two pages. The map, and (in its place) the open province. Each scrolls like any page.
+// 1280 and up: one screen. Below: the map is a page, an open province another.
 export function BanDoVietNam() {
   const [luaChon, datLuaChon] = useState<LuaChon | null>(null);
   const vungBang = useRef<HTMLDivElement>(null);
@@ -32,7 +29,6 @@ export function BanDoVietNam() {
 
   const dong = useCallback(() => {
     datLuaChon(null);
-    // page mode: the map page comes back exactly where it was left
     if (dangTrang()) sauKhiVe(() => window.scrollTo({ top: cuonCu.current, behavior: "instant" }));
   }, []);
 
@@ -43,7 +39,7 @@ export function BanDoVietNam() {
     return () => window.removeEventListener("keydown", nghePhim);
   }, [dangMo, dong]);
 
-  // How wide is a thin scrollbar here? Panels give up exactly that much right padding (see khung-cuon in the CSS).
+  // a thin scrollbar's width: panels give up that much right padding
   useEffect(() => {
     const thu = document.createElement("div");
     thu.style.cssText = "position:absolute;visibility:hidden;width:50px;height:50px;overflow:scroll;scrollbar-width:thin";
@@ -66,7 +62,7 @@ export function BanDoVietNam() {
   const chonMuc = (muc: number) => {
     if (!tinh || !luaChon) return;
     datLuaChon({ ...luaChon, muc, con: 0 });
-    // page mode: jump down to the content, unless the row just opened a sub-menu the reader still has to pick from
+    // jump to the content, unless a sub-menu just opened
     if (dangTrang() && !tinh.mucLuc[muc].con) cuonToi(() => vungBang.current);
   };
   const chonCon = (con: number) => {
@@ -84,9 +80,7 @@ export function BanDoVietNam() {
     <ClickSpark sparkColor={ghim.mau} sparkSize={12} sparkRadius={24} sparkCount={8} duration={450}>
       <main
         data-ban-do
-        // page mode: one grid cell shared by the map and the open province, so the page is as tall as whichever shows
         className="relative mx-auto grid w-full grid-cols-[minmax(0,1fr)] overflow-x-clip xl:block xl:h-dvh xl:overflow-hidden"
-        // one screen: a click on bare background closes the card; pins, card and panels opt out
         onClick={(e) => !dangTrang() && !(e.target as Element).closest("[data-giu-mo]") && dong()}
       >
         <div className={`relative col-start-1 row-start-1 pb-24 xl:static xl:pb-0 ${dangMo ? "max-xl:hidden" : ""}`}>
@@ -96,7 +90,6 @@ export function BanDoVietNam() {
           </nav>
 
           <div
-            // one screen: centred while nothing is open, parked on the right (under the pills) when a province is
             className={`ti-le-ban-do relative mx-auto w-[calc(var(--px)*1162.95)] xl:absolute xl:top-[calc(var(--le-doc)_+_var(--cao-thanh-tren))] xl:mx-0 xl:transition-[left] xl:duration-500 xl:ease-[cubic-bezier(0.22,1,0.36,1)] ${
               dangMo ? "xl:left-[calc(100%_-_var(--le-ngang)_-_var(--rong-ban-do))]" : "xl:left-[calc(50%_-_var(--rong-ban-do)_/_2)]"
             }`}
@@ -118,7 +111,6 @@ export function BanDoVietNam() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              // page mode: this is the page. one screen: a see-through layer over the left of the window.
               className="relative z-30 col-start-1 row-start-1 min-w-0 bg-nen p-16 xl:pointer-events-none xl:absolute xl:inset-x-(--le-ngang) xl:inset-y-(--le-doc) xl:bg-transparent xl:p-0"
             >
               <NutQuayLai nhan={dieuHuong.quayLai} khiBam={dong} className="mb-16 text-muc xl:hidden" />
@@ -138,12 +130,12 @@ export function BanDoVietNam() {
                   <AnimatePresence mode="wait" initial={false}>
                     <motion.div
                       key={`${luaChon.muc}-${muc?.xepChong ? "tat-ca" : luaChon.con}`}
-                      // comes down from above: sliding in sideways or from below would stretch the page for a moment
+                      // from above: any other way stretches the page for a moment
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                      // two panels at once (Travel Prep) scroll together as a column; a single panel scrolls inside itself
+                      // Travel Prep's two panels scroll as one column
                       className={`flex flex-col items-center gap-19 xl:max-h-full xl:items-start ${
                         muc?.xepChong ? "chua-cho-ban-do khung-cuon pointer-events-auto xl:w-fit" : ""
                       }`}

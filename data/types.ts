@@ -1,10 +1,8 @@
-// Shapes of the JSON next door. Keys are Vietnamese because that's how the team reads them.
-
 export type DoanVan = { chu: string; dam?: boolean; lienKet?: string };
 export type DongVan = { gach?: true; doan: DoanVan[] };
 export type Canh = "trai" | "giua" | "phai";
 
-// cat: where Figma cropped the photo, in percent of the frame
+// cat: Figma's crop, in percent of the frame
 export type Anh = {
   src: string;
   rong: number;
@@ -21,7 +19,7 @@ export type Khoi =
   | { kieu: "ke" };
 
 export type Bang = { ma: string; rong: number; khoangCach: number; khoi: Khoi[] };
-// rong: Figma fixed the label's box, so it wraps there. gon: the row hugs its text instead of the usual 50.
+// rong: the label wraps at this width. gon: the row hugs its text.
 export type MucCon = { nhan: string; bang: Bang; rong?: number; gon?: true };
 // xepChong: show every child panel at once (Travel Prep does this)
 export type Muc = { nhan: string; bang?: Bang; con?: MucCon[]; xepChong?: true };

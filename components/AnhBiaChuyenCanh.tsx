@@ -4,10 +4,9 @@ import { useEffect, useState } from "react";
 import { AnhGoc } from "@/components/AnhGoc";
 import type { Anh } from "@/data";
 
-const THOI_GIAN_MO = 1300; // matches animate-tan; the designer asked for exactly this dissolve
+const THOI_GIAN_MO = 1300; // the designer asked for exactly this
 const THOI_GIAN_DUNG = 2600;
 
-// Cover photos that melt into each other. One photo? Then it just sits there looking pretty.
 export function AnhBiaChuyenCanh({ danhSach, className = "" }: { danhSach: Anh[]; className?: string }) {
   const soAnh = danhSach.length;
   const [canh, datCanh] = useState<{ hien: number; truoc: number | null }>({ hien: 0, truoc: null });
@@ -28,7 +27,7 @@ export function AnhBiaChuyenCanh({ danhSach, className = "" }: { danhSach: Anh[]
 
   return (
     <div className={`relative overflow-hidden rounded-17 border-3 border-xanh ${className}`}>
-      {/* next one waits in the wings so the heavy original is already loaded when its turn comes */}
+      {/* next photo preloads here */}
       {keTiep !== canh.hien && keTiep !== canh.truoc && (
         <div key={`cho-${keTiep}`} className="absolute inset-0 opacity-0">
           {lop(danhSach[keTiep])}
@@ -39,7 +38,7 @@ export function AnhBiaChuyenCanh({ danhSach, className = "" }: { danhSach: Anh[]
           {lop(danhSach[canh.truoc])}
         </div>
       )}
-      {/* new key each step, so the fade restarts on top of the old photo */}
+      {/* new key each step restarts the fade */}
       <div key={`hien-${canh.hien}`} className="absolute inset-0 animate-tan">
         {lop(danhSach[canh.hien], canh.truoc === null)}
       </div>

@@ -154,7 +154,7 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
 
   return (
     <div className="relative w-full h-full" onClick={handleClick}>
-      {/* patched from upstream: z-50, or the sparks hide behind the map and the cards */}
+      {/* patched: z-50, or the sparks hide behind the map */}
       <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 z-50" />
       {children}
     </div>

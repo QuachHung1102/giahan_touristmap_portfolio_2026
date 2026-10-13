@@ -15,13 +15,12 @@ const bang = "bg-xanh px-20 py-14 text-center font-bold text-white";
 export default function TrangDongGop() {
   return (
     <main className="khung-1440 relative isolate flex min-h-dvh flex-col items-center overflow-hidden px-16 pt-24 pb-60 text-white lg:px-0 lg:pt-52 lg:pb-[calc(var(--px)*91.6)]">
-      {/* the campfire photo eases back while you read; the dark veil is the design's 40% black */}
       <Image src={dongGop.nen.src} alt="" fill priority draggable={false} className="-z-20 animate-phong-nen object-cover" />
       <div className="absolute inset-0 -z-10 bg-black/40" />
 
       <NutQuayLai nhan={dieuHuong.quayLai} href="/" className="self-start lg:ml-100" />
 
-      <TieuDe chu={dongGop.tieuDe} cap={1} canh="giua" theo="letters" className="mt-20 text-65" />
+      <TieuDe chu={dongGop.tieuDe} cap={1} canh="giua" className="mt-20 text-65" />
 
       <HienDan tre={0.15} className="mt-14 w-820 max-w-full">
         <p className={`${bang} text-30 leading-[1.27]`}>{dongGop.khauHieu}</p>

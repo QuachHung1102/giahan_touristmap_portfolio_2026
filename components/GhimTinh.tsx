@@ -7,7 +7,7 @@ type Props = { tinh: Tinh; thuTu: number; dangMo: boolean; khiBam: () => void };
 
 const { ghim, banDo } = hinhDang;
 
-// A pin and its name tag. Anchored by the pin's tip, in percent, so it stays put at any map size.
+// anchored by the pin's tip, in percent of the map
 export function GhimTinh({ tinh, thuTu, dangMo, khiBam }: Props) {
   return (
     <motion.div
@@ -16,7 +16,7 @@ export function GhimTinh({ tinh, thuTu, dangMo, khiBam }: Props) {
         left: `${((tinh.ghim.x - banDo.x) / banDo.rong) * 100}%`,
         top: `${((tinh.ghim.y - banDo.y) / banDo.cao) * 100}%`,
       }}
-      // pins land after the map has finished assembling itself
+      // pins land after the map has assembled
       initial={{ opacity: 0, y: -70, scale: 0.4 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ type: "spring", stiffness: 240, damping: 13, delay: 1.2 + thuTu * 0.13 }}

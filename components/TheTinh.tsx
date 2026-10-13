@@ -14,13 +14,11 @@ type Props = {
   className?: string;
 };
 
-// 44px is the smallest row a thumb hits reliably; only matters once the card is scaled down on phones
+// 44px: the smallest row a thumb hits reliably
 const hang =
   "flex w-full cursor-pointer items-center justify-center px-20 text-18 leading-[1.55] transition-colors duration-200 max-xl:min-h-[44px]";
 
-// A sub-row label. Figma has two kinds: boxed ones that wrap at their box, and loose ones that stay on one line.
-// Either kind may lean a few pixels into the row's padding, as it does in Figma, and both wrap for real once
-// the card itself gets narrower than that.
+// boxed labels wrap at their box, loose ones stay on one line; both may lean into the padding
 function NhanCon({ con }: { con: MucCon }) {
   return con.rong ? (
     <span
@@ -34,25 +32,21 @@ function NhanCon({ con }: { con: MucCon }) {
   );
 }
 
-// The province card: cover, name, and the menu that decides which panel shows up next to it.
-// On the one-screen layout it can never be taller than the window. When the menu opens and there is no room,
-// the photo gives way first (it shrinks 1000x more willingly, down to a slim banner); only if that is not enough
-// does the menu scroll. Its scrollbar sits in the card's right padding, on a seat that is always reserved, so the
-// rows never change width when it appears.
+// short window: the photo shrinks first, then the menu scrolls
 export function TheTinh({ tinh, muc, con, chonMuc, chonCon, className = "" }: Props) {
   return (
     <div className={`flex min-h-0 w-[calc(var(--px)*474+4px)] max-w-full flex-col gap-18 rounded-17 border-2 border-xanh bg-giay/70 p-20 ${className}`}>
       <AnhBiaChuyenCanh danhSach={tinh.anhBia} className="h-233 min-h-48 w-full shrink-[1000]" />
-      <TieuDe chu={tinh.ten} theo="letters" className="shrink-0 text-65 text-xanh" />
+      <TieuDe chu={tinh.ten} className="shrink-0 text-65 text-xanh" />
 
-      {/* the menu is 442 wide in Figma, 4px proud of the padding on each side */}
+      {/* 442 wide in Figma: 4px proud of the padding */}
       <nav
         aria-label={tinh.tenDayDu}
         className="khung-cuon -mx-4 flex min-h-0 flex-col xl:mr-[calc(var(--px)*-4_-_var(--rong-thanh-cuon,0px))]"
       >
         {tinh.mucLuc.map((m, i) => {
           const dangMo = i === muc;
-          // the rule under a row disappears while its children are hanging out below it
+          // no rule under a row while its children show
           const coKe = !(dangMo && m.con);
           return (
             <div key={m.nhan} className="shrink-0">
@@ -75,7 +69,7 @@ export function TheTinh({ tinh, muc, con, chonMuc, chonCon, className = "" }: Pr
                     animate={{ height: "auto" }}
                     exit={{ height: 0 }}
                     transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                    // one background for the whole list: separate ones leave hairline seams at fractional pixels
+                    // one background: separate ones leave hairline seams
                     className="overflow-hidden bg-xanh-nhat"
                   >
                     {m.con.map((c, j) => (
@@ -84,7 +78,7 @@ export function TheTinh({ tinh, muc, con, chonMuc, chonCon, className = "" }: Pr
                         type="button"
                         onClick={() => chonCon(j)}
                         aria-current={!m.xepChong && j === con ? "true" : undefined}
-                        // the chosen row goes dark instead of bold: bold would re-wrap the label and make the card jump
+                        // dark, not bold: bold would re-wrap the label
                         className={`${hang} py-10 text-center text-white ${c.gon ? "" : "min-h-50"} ${
                           !m.xepChong && j === con ? "bg-xanh" : "hover:bg-xanh/60"
                         }`}

@@ -29,7 +29,7 @@ const Magnet: React.FC<MagnetProps> = ({
   const magnetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // patched from upstream: resetting state here trips react-hooks/set-state-in-effect; the render below handles it
+    // patched: no setState in the effect, the render handles disabled
     if (disabled) return;
 
     const handleMouseMove = (e: MouseEvent) => {
