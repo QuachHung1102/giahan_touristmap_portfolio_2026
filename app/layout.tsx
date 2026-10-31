@@ -17,7 +17,6 @@ const chuDuPhong = Sofia_Sans_Extra_Condensed({
 });
 
 // Be Vietnam's web subset has no "→"; borrow Arial's, sized to the width Figma uses
-// Chọn quả font khắm đéo chịu đc
 const chuMuiTen = '@font-face{font-family:"Mui Ten";src:local("Arial");unicode-range:U+2190-21FF;font-weight:100 900;size-adjust:97%}';
 
 export const metadata: Metadata = {
